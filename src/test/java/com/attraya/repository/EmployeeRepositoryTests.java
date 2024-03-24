@@ -139,4 +139,23 @@ public class EmployeeRepositoryTests {
         assertThat(employeeOptional).isEmpty();
     }
 
+    // Junit test for custom query using JPQL with index params
+    @Test
+    public void givenFirstNameAndLastName_whenFindByJPQL_thenRemoveEmployeeObject(){
+        // given - precondition or setup
+        Employee employee = Employee.builder()
+                .firstName("Attraya")
+                .lastName("Das")
+                .email("attraya@gmail.com")
+                .build();
+
+        employeeRepository.save(employee);
+
+        // when - action or the behavior that we are going to test
+        Employee savedEmployee = employeeRepository.findByJPQL("Attraya", "Das");
+
+        // then - verify the output
+        assertThat(savedEmployee).isNotNull();
+    }
+
 }
