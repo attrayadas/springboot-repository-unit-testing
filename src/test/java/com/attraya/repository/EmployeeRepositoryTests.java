@@ -2,6 +2,8 @@ package com.attraya.repository;
 
 import com.attraya.model.Employee;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,15 +17,21 @@ public class EmployeeRepositoryTests {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    // Junit test for save employee operation
-    @Test
-    public void givenEmployeeObject_whenSave_thenReturnSavedEmployee(){
-        // given - precondition or setup
-        Employee employee = Employee.builder()
+    private Employee employee;
+
+    @BeforeEach
+    public void setup(){
+        employee = Employee.builder()
                 .firstName("Attraya")
                 .lastName("Das")
                 .email("attraya@gmail.com")
                 .build();
+    }
+
+    // Junit test for save employee operation
+    @Test
+    public void givenEmployeeObject_whenSave_thenReturnSavedEmployee(){
+        // given - precondition or setup
 
         // when - action or the behavior that we are going to test
         Employee savedEmployee = employeeRepository.save(employee);
@@ -37,17 +45,12 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenEmployeeList_whenFindAll_thenReturnEmployeeList(){
         // given - precondition or setup
-        Employee employee1 = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
         Employee employee2 = Employee.builder()
                 .firstName("Sudhakar")
                 .lastName("S")
                 .email("sudhakar.s@gmail.com")
                 .build();
-        employeeRepository.save(employee1);
+        employeeRepository.save(employee);
         employeeRepository.save(employee2);
 
         // when - action or the behavior that we are going to test
@@ -62,11 +65,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenEmployeeObject_whenFindById_thenReturnEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
 
         employeeRepository.save(employee);
 
@@ -81,11 +79,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenEmployeeEmail_whenFindByEmail_thenReturnEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
 
         employeeRepository.save(employee);
 
@@ -100,12 +93,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenEmployeeObject_whenUpdateEmployee_thenReturnUpdatedEmployee(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
@@ -123,12 +110,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenEmployeeObject_whenDeleteEmployee_thenRemoveEmployee(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
@@ -143,12 +124,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenFirstNameAndLastName_whenFindByJPQL_thenRemoveEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
@@ -162,12 +137,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenFirstNameAndLastName_whenFindByJPQLNamedParams_thenRemoveEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
@@ -181,12 +150,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenFirstNameAndLastName_whenFindByNativeSQL_thenReturnEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
@@ -200,12 +163,6 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenFirstNameAndLastName_whenFindByNativeSQLNamedParams_thenReturnEmployeeObject(){
         // given - precondition or setup
-        Employee employee = Employee.builder()
-                .firstName("Attraya")
-                .lastName("Das")
-                .email("attraya@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // when - action or the behavior that we are going to test
