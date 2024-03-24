@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class EmployeeRepositoryTests {
@@ -93,6 +94,49 @@ public class EmployeeRepositoryTests {
 
         // then - verify the output
         assertThat(employeeDB).isNotNull();
+    }
+
+    // Junit test for update employee operation
+    @Test
+    public void givenEmployeeObject_whenUpdateEmployee_thenReturnUpdatedEmployee(){
+        // given - precondition or setup
+        Employee employee = Employee.builder()
+                .firstName("Attraya")
+                .lastName("Das")
+                .email("attraya@gmail.com")
+                .build();
+
+        employeeRepository.save(employee);
+
+        // when - action or the behavior that we are going to test
+        Employee savedEmployee = employeeRepository.findById(employee.getId()).get();
+        savedEmployee.setEmail("attrayadas@yahoo.com");
+        savedEmployee.setLastName("Ghosh Das");
+        Employee updatedEmployee = employeeRepository.save(savedEmployee);
+
+        // then - verify the output
+        assertThat(updatedEmployee.getEmail()).isEqualTo("attrayadas@yahoo.com");
+        assertThat(updatedEmployee.getLastName()).isEqualTo("Ghosh Das");
+    }
+
+    // Junit test for delete employee operation
+    @Test
+    public void givenEmployeeObject_whenDeleteEmployee_thenRemoveEmployee(){
+        // given - precondition or setup
+        Employee employee = Employee.builder()
+                .firstName("Attraya")
+                .lastName("Das")
+                .email("attraya@gmail.com")
+                .build();
+
+        employeeRepository.save(employee);
+
+        // when - action or the behavior that we are going to test
+        employeeRepository.delete(employee);
+        Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
+
+        // then - verify the output
+        assertThat(employeeOptional).isEmpty();
     }
 
 }
